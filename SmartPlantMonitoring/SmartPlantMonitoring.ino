@@ -2,28 +2,27 @@
 // IOT Smart Plant Monitoring System
 #define BLYNK_PRINT Serial   
 #include <SPI.h>
-#include <ESP8266WiFi.h>
-#include <BlynkSimpleEsp8266.h>
-#include <SimpleTimer.h>
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
 #include <DHT.h>
 #define BLYNK_PRINT Serial
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#define ONE_WIRE_BUS D2
+#define ONE_WIRE_BUS 2
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
-char auth[] ="utM9jCVlHuiMBIkLGDlt470Bn_OAg4Ht";               //Authentication code sent by Blynk
-char ssid[] = "gajah";                         //WiFi SSID
-char pass[] = "gajahgendut";                   //WiFi Password
+char auth[] ="----------------";               //Authentication code sent by Blynk
+char ssid[] = "-------";                       //WiFi SSID
+char pass[] = "-------";                       //WiFi Password
 
-#define sensorPin D3 
+#define sensorPin 3 
 int sensorState = 0;
 int lastState = 0;
 #define DHTPIN 2    
 #define DHTTYPE DHT11     
 DHT dht(DHTPIN, DHTTYPE);
-SimpleTimer timer;
+BlynkTimer timer;
 void sendSensor()
 {
   float h = dht.readHumidity();
@@ -52,7 +51,7 @@ void setup()
 int sensor=0;
 void sendTemps()
 {
-sensor=analogRead(A0);
+sensor=analogRead();
 sensors.requestTemperatures();
 float temp = sensors.getTempCByIndex(0); 
 Serial.println(temp);
